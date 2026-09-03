@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { FAQAccordion, SiteHeader } from './site-interactions';
 
 const featuredExperiences = [
   {
@@ -65,22 +66,22 @@ const journey = [
 ];
 
 const activities = [
-  ['Colônia de férias', 'Dias inteiros de arte e convivência'],
-  ['Oficinas especiais', 'Novas técnicas e projetos temáticos'],
-  ['Projetos temáticos', 'Ideias que acompanham cada época do ano'],
-  ['Experiências sazonais', 'Uma agenda que muda e surpreende'],
+  { title: 'Colônia de férias', copy: 'Dias inteiros de arte e convivência' },
+  { title: 'Oficinas especiais', copy: 'Novas técnicas e projetos temáticos' },
+  { title: 'Projetos temáticos', copy: 'Ideias que acompanham cada época do ano' },
+  { title: 'Experiências sazonais', copy: 'Uma agenda que muda e surpreende' },
 ];
 
-// As respostas aguardam confirmação da Casa Criativa e não são publicadas.
+// Respostas específicas de idade, materiais, horários e endereço aguardam confirmação.
 const faqQuestions = [
-  'Qual idade pode participar?',
-  'Existem turmas para adultos?',
-  'Precisa saber desenhar para começar?',
-  'Os materiais estão incluídos?',
-  'Como funcionam os horários das turmas?',
-  'É possível conhecer o espaço antes?',
-  'Como faço para matricular meu filho?',
-  'Onde fica a Casa Criativa?',
+  { question: 'Qual idade pode participar?', answer: 'As faixas etárias de cada turma serão publicadas após confirmação. Fale com a Casa Criativa para encontrar a opção adequada.' },
+  { question: 'Existem turmas para adultos?', answer: 'Sim. A Casa Criativa oferece possibilidades para crianças, jovens e adultos.' },
+  { question: 'Precisa saber desenhar para começar?', answer: 'A proposta valoriza experimentar, descobrir e criar. Fale com a Casa Criativa para encontrar a turma mais adequada para começar.' },
+  { question: 'Os materiais estão incluídos?', answer: 'Essa informação varia conforme a atividade e aguarda confirmação. Consulte a Casa Criativa antes da inscrição.' },
+  { question: 'Como funcionam os horários das turmas?', answer: 'Os horários disponíveis serão informados diretamente pela Casa Criativa.' },
+  { question: 'É possível conhecer o espaço antes?', answer: 'Fale com a Casa Criativa para combinar uma visita e conhecer o ateliê.' },
+  { question: 'Como faço para matricular meu filho?', answer: 'Entre em contato para conhecer as turmas disponíveis e receber as orientações de matrícula.' },
+  { question: 'Onde fica a Casa Criativa?', answer: 'A Casa Criativa fica em Passo Fundo/RS. O endereço completo será publicado após confirmação.' },
 ];
 
 const socialImages = [
@@ -92,30 +93,7 @@ const socialImages = [
 export default function Home() {
   return (
     <main>
-      <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="Casa Criativa — início">
-          <span>casa</span>
-          <strong>CRIATIVA</strong>
-        </a>
-        <nav className="desktop-nav" aria-label="Navegação principal">
-          <a href="#casa">A Casa</a>
-          <a href="#experiencias">Aulas &amp; Oficinas</a>
-          <a href="#galeria">Galeria</a>
-          <a href="#agenda">Colônia de Férias</a>
-          <a href="#contato">Contato</a>
-        </nav>
-        <a className="header-cta" href="#contato">Fale conosco <span>↗</span></a>
-        <details className="mobile-menu">
-          <summary aria-label="Abrir menu"><i /><i /></summary>
-          <nav aria-label="Navegação mobile">
-            <a href="#casa">A Casa</a>
-            <a href="#experiencias">Aulas &amp; Oficinas</a>
-            <a href="#galeria">Galeria</a>
-            <a href="#agenda">Colônia de Férias</a>
-            <a href="#contato">Contato</a>
-          </nav>
-        </details>
-      </header>
+      <SiteHeader />
 
       <section className="hero" id="inicio">
         <Image className="hero-image" src="/images/hero-atelie.webp" alt="Crianças criando juntas no ateliê da Casa Criativa" fill priority sizes="100vw" />
@@ -277,8 +255,8 @@ export default function Home() {
             <a className="button dark" href="#contato">Ver próximas atividades <span>→</span></a>
           </div>
           <ol className="activity-list">
-            {activities.map(([title, copy], index) => (
-              <li key={title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{title}</h3><p>{copy}</p></div><b>↗</b></li>
+            {activities.map((activity, index) => (
+              <li key={activity.title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{activity.title}</h3><p>{activity.copy}</p></div><a href="#contato" aria-label={`Consultar ${activity.title}`}>↗</a></li>
             ))}
           </ol>
         </div>
@@ -301,14 +279,12 @@ export default function Home() {
       <section className="faq section-pad" aria-labelledby="faq-title">
         <div className="shell faq-grid">
           <div className="faq-heading"><p className="eyebrow">Antes de começar</p><h2 id="faq-title">Dúvidas frequentes</h2><p>Para informações confirmadas sobre turmas e inscrições, fale diretamente com a Casa Criativa.</p></div>
-          <ul className="faq-list">
-            {faqQuestions.map((question, index) => <li key={question}><span>{String(index + 1).padStart(2, '0')}</span><p>{question}</p><i aria-hidden="true">+</i></li>)}
-          </ul>
+          <FAQAccordion items={faqQuestions} />
         </div>
       </section>
 
       <section className="final-cta" id="contato">
-        <Image src="/images/hero-atelie.webp" alt="Ambiente da Casa Criativa com crianças em atividade" fill sizes="100vw" />
+        <Image src="/images/criacao-em-grupo.webp" alt="Crianças criando juntas na Casa Criativa" fill sizes="100vw" />
         <div className="final-shade" />
         <div className="shell final-content reveal">
           <p className="eyebrow light">Sua primeira criação começa aqui</p>
