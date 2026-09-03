@@ -297,7 +297,7 @@ export default function Home() {
       <footer className="footer">
         <div className="shell footer-grid">
           <div>
-            <a className="brand footer-brand" href="#inicio"><span>casa</span><strong>CRIATIVA</strong></a>
+            <a className="brand footer-brand" href="#inicio" aria-label="Casa Criativa — início"><Image className="brand-logo" src="/images/brand/casa-criativa-logo.png" alt="Casa Criativa" width={1080} height={1350} sizes="96px" /></a>
             <p>Um espaço para criar, experimentar e desenvolver criatividade, técnica e imaginação através da arte.</p>
           </div>
           <nav aria-label="Navegação do rodapé"><p className="footer-label">Explore</p><a href="#casa">A Casa</a><a href="#experiencias">Aulas &amp; Oficinas</a><a href="#galeria">Galeria</a><a href="#agenda">Colônia de Férias</a></nav>

@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 const navigation = [
@@ -32,7 +33,7 @@ export function SiteHeader() {
   return (
     <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
       <a className="brand" href="#inicio" aria-label="Casa Criativa — início">
-        <span>casa</span><strong>CRIATIVA</strong>
+        <Image className="brand-logo" src="/images/brand/casa-criativa-logo.png" alt="Casa Criativa" width={1080} height={1350} priority sizes="80px" />
       </a>
       <nav className="desktop-nav" aria-label="Navegação principal">
         {navigation.map(([label, href]) => <a href={href} key={href}>{label}</a>)}
