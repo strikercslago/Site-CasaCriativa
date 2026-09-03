@@ -1,7 +1,7 @@
 'use client';
 
-import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { ResponsiveImage } from './components/responsive-image';
 
 const navigation = [
   ['A Casa', '#casa'],
@@ -33,7 +33,7 @@ export function SiteHeader() {
   return (
     <header className={`site-header${scrolled ? ' is-scrolled' : ''}`}>
       <a className="brand" href="#inicio" aria-label="Casa Criativa — início">
-        <Image className="brand-logo" src="/images/brand/casa-criativa-logo.png" alt="Casa Criativa" width={1080} height={1350} priority sizes="80px" />
+        <ResponsiveImage preset="brand" className="brand-logo" src="/images/brand/casa-criativa-logo.png" alt="Casa Criativa" width={1080} height={1350} preload sizes="80px" />
       </a>
       <nav className="desktop-nav" aria-label="Navegação principal">
         {navigation.map(([label, href]) => <a href={href} key={href}>{label}</a>)}
