@@ -1,4 +1,5 @@
 import { ResponsiveImage } from './components/responsive-image';
+import { siteImages, type SiteImage } from './site-images';
 import { FAQAccordion, SiteHeader } from './site-interactions';
 
 const featuredExperiences = [
@@ -6,24 +7,21 @@ const featuredExperiences = [
     number: '01',
     title: 'Desenho & Pintura',
     copy: 'Cores, formas, composição e diferentes técnicas para transformar ideias em imagens.',
-    image: '/images/aula-desenho.webp',
-    alt: 'Crianças desenhando em uma mesa com materiais artísticos',
+    image: siteImages.experiences.drawing,
     tone: 'cyan',
   },
   {
     number: '02',
     title: 'Modelagem & Cerâmica Fria',
     copy: 'Experiências tridimensionais para criar objetos, personagens e peças autorais.',
-    image: '/images/ceramica-processo.webp',
-    alt: 'Mãos dando acabamento a uma peça de cerâmica com detalhes florais',
+    image: siteImages.experiences.ceramics,
     tone: 'yellow',
   },
   {
     number: '03',
     title: 'Projetos Criativos',
     copy: 'Papel, papelão, tecidos, elementos naturais e diferentes materiais se transformam em novas criações.',
-    image: '/images/obra-festa-junina.webp',
-    alt: 'Aluna apresentando um cenário artístico feito à mão',
+    image: siteImages.experiences.projects,
     tone: 'pink',
   },
 ];
@@ -39,22 +37,19 @@ const audiences = [
     label: 'Crianças',
     title: 'Um mundo inteiro para descobrir.',
     copy: 'Contato com materiais, cores, formas e técnicas em atividades que valorizam a experimentação, a curiosidade e a criatividade.',
-    image: '/images/criacao-em-grupo.webp',
-    alt: 'Criança pintando durante uma atividade artística em grupo',
+    image: siteImages.audiences.children,
   },
   {
     label: 'Jovens',
     title: 'Da curiosidade à identidade artística.',
     copy: 'Mais técnica, novas referências e liberdade para desenvolver repertório, habilidades e um jeito próprio de criar.',
-    image: '/images/aula-desenho.webp',
-    alt: 'Alunos desenvolvendo desenhos em uma aula de arte',
+    image: siteImages.audiences.youth,
   },
   {
     label: 'Adultos',
     title: 'Criar também é uma forma de sair da rotina.',
     copy: 'Um espaço para aprender, experimentar materiais e reservar um tempo para fazer algo com as próprias mãos.',
-    image: '/images/fundadora.webp',
-    alt: 'Artista com pincel em frente a uma pintura colorida',
+    image: siteImages.audiences.adults,
   },
 ];
 
@@ -84,14 +79,7 @@ const faqQuestions = [
   { question: 'Onde fica a Casa Criativa?', answer: 'A Casa Criativa fica em Passo Fundo/RS. O endereço completo será publicado após confirmação.' },
 ];
 
-const socialImages = [
-  ['/images/criacao-em-grupo.webp', 'Processo criativo em grupo na Casa Criativa'],
-  ['/images/obra-festa-junina.webp', 'Aluna com uma criação feita à mão'],
-  ['/images/ceramica-processo.webp', 'Detalhe do processo de criação em cerâmica'],
-];
-
-const craftExperienceFocus = { desktop: '50% 50%', tablet: '50% 48%', mobile: '50% 46%' } as const;
-const craftInstagramFocus = { desktop: '50% 50%', tablet: '50% 48%', mobile: '50% 46%' } as const;
+const imageFocus = (image: SiteImage) => image.focus;
 
 export default function Home() {
   return (
@@ -99,7 +87,7 @@ export default function Home() {
       <SiteHeader />
 
       <section className="hero" id="inicio">
-        <ResponsiveImage className="hero-image" preset="hero" src="/images/hero-atelie.webp" alt="Crianças criando juntas no ateliê da Casa Criativa" fill preload sizes="100vw" />
+        <ResponsiveImage className="hero-image" preset={siteImages.hero.preset} src={siteImages.hero.src} alt={siteImages.hero.alt} fill preload sizes="100vw" />
         <div className="hero-shade" />
         <div className="hero-content shell">
           <p className="eyebrow light">Ateliê de arte · Passo Fundo/RS</p>
@@ -116,7 +104,7 @@ export default function Home() {
       <section className="manifesto section-pad" id="casa">
         <div className="shell manifesto-grid reveal">
           <div className="manifesto-image">
-            <ResponsiveImage preset="portrait" focus={{ desktop: '50% 32%', tablet: '50% 30%', mobile: '50% 28%' }} src="/images/criacao-em-grupo.webp" alt="Alunas criando juntas no ateliê" fill sizes="(max-width: 700px) 38vw, 24vw" />
+            <ResponsiveImage preset={siteImages.manifesto.preset} focus={siteImages.manifesto.focus} src={siteImages.manifesto.src} alt={siteImages.manifesto.alt} fill sizes="(max-width: 700px) 38vw, 24vw" />
           </div>
           <div className="manifesto-copy">
             <p className="eyebrow">Manifesto</p>
@@ -155,7 +143,7 @@ export default function Home() {
           {featuredExperiences.map((item, index) => (
             <article className={`experience ${index % 2 ? 'reverse' : ''}`} key={item.title}>
               <div className={`experience-photo${index === 2 ? ' experience-photo--craft' : ''}`}>
-                <ResponsiveImage preset={index === 1 ? 'process' : 'editorial'} focus={index === 2 ? craftExperienceFocus : undefined} src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 100vw, 58vw" />
+                <ResponsiveImage preset={item.image.preset} focus={item.image.focus} src={item.image.src} alt={item.image.alt} fill sizes="(max-width: 800px) 100vw, 58vw" />
               </div>
               <div className={`experience-copy ${item.tone}`}>
                 <span>{item.number}</span>
@@ -187,11 +175,11 @@ export default function Home() {
           </div>
         </div>
         <div className="shell art-grid">
-          <figure className="art art-a"><ResponsiveImage preset="gallery" focus={{ desktop: '50% 38%', tablet: '50% 28%', mobile: '50% 32%' }} src="/images/obra-festa-junina.webp" alt="Aluna apresenta cenário artístico colorido" fill sizes="(max-width: 700px) 60vw, 32vw" /><figcaption>Projeto autoral</figcaption></figure>
-          <figure className="art art-b"><ResponsiveImage preset="process" src="/images/ceramica-processo.webp" alt="Mãos modelam detalhes florais em uma peça" fill sizes="(max-width: 700px) 45vw, 24vw" /><figcaption>Modelagem</figcaption></figure>
-          <figure className="art art-c"><ResponsiveImage preset="gallery" focus={{ desktop: '50% 43%', tablet: '50% 43%', mobile: '50% 45%' }} src="/images/aula-desenho.webp" alt="Crianças desenham ao redor de uma mesa" fill sizes="(max-width: 700px) 100vw, 42vw" /><figcaption>Experimentação</figcaption></figure>
-          <figure className="art art-d"><ResponsiveImage preset="portrait" src="/images/fundadora.webp" alt="Artista segura um pincel diante de uma pintura" fill sizes="(max-width: 700px) 46vw, 22vw" /><figcaption>Arte em cada detalhe</figcaption></figure>
-          <figure className="art art-e"><ResponsiveImage preset="gallery" focus={{ desktop: '50% 22%', tablet: '50% 24%', mobile: '50% 28%' }} src="/images/criacao-em-grupo.webp" alt="Aluna pinta em uma atividade artística coletiva" fill sizes="(max-width: 700px) 50vw, 28vw" /><figcaption>Criação em grupo</figcaption></figure>
+          <figure className="art art-a"><ResponsiveImage preset={siteImages.gallery[0].preset} focus={imageFocus(siteImages.gallery[0])} src={siteImages.gallery[0].src} alt={siteImages.gallery[0].alt} fill sizes="(max-width: 700px) 60vw, 32vw" /><figcaption>Projeto autoral</figcaption></figure>
+          <figure className="art art-b"><ResponsiveImage preset={siteImages.gallery[1].preset} focus={imageFocus(siteImages.gallery[1])} src={siteImages.gallery[1].src} alt={siteImages.gallery[1].alt} fill sizes="(max-width: 700px) 45vw, 24vw" /><figcaption>Modelagem</figcaption></figure>
+          <figure className="art art-c"><ResponsiveImage preset={siteImages.gallery[2].preset} focus={imageFocus(siteImages.gallery[2])} src={siteImages.gallery[2].src} alt={siteImages.gallery[2].alt} fill sizes="(max-width: 700px) 100vw, 42vw" /><figcaption>Experimentação</figcaption></figure>
+          <figure className="art art-d"><ResponsiveImage preset={siteImages.gallery[3].preset} focus={imageFocus(siteImages.gallery[3])} src={siteImages.gallery[3].src} alt={siteImages.gallery[3].alt} fill sizes="(max-width: 700px) 46vw, 22vw" /><figcaption>Arte em cada detalhe</figcaption></figure>
+          <figure className="art art-e"><ResponsiveImage preset={siteImages.gallery[4].preset} focus={imageFocus(siteImages.gallery[4])} src={siteImages.gallery[4].src} alt={siteImages.gallery[4].alt} fill sizes="(max-width: 700px) 50vw, 28vw" /><figcaption>Criação em grupo</figcaption></figure>
         </div>
         <div className="shell gallery-action"><a className="button outline" href="#instagram">Ver mais criações <span>→</span></a></div>
       </section>
@@ -204,7 +192,7 @@ export default function Home() {
         <div className="shell audience-grid">
           {audiences.map((item) => (
             <article key={item.label}>
-              <div className="audience-photo"><ResponsiveImage preset={item.label === 'Adultos' ? 'portrait' : 'editorial'} focus={item.label === 'Crianças' ? { desktop: '50% 30%', tablet: '50% 30%', mobile: '50% 27%' } : item.label === 'Jovens' ? { desktop: '50% 38%', tablet: '50% 40%', mobile: '50% 42%' } : { desktop: '50% 32%', tablet: '50% 22%', mobile: '50% 5%' }} src={item.image} alt={item.alt} fill sizes="(max-width: 760px) 100vw, 33vw" /></div>
+              <div className="audience-photo"><ResponsiveImage preset={item.image.preset} focus={item.image.focus} src={item.image.src} alt={item.image.alt} fill sizes="(max-width: 760px) 100vw, 33vw" /></div>
               <p className="audience-label">{item.label}</p>
               <h3>{item.title}</h3>
               <p>{item.copy}</p>
@@ -227,7 +215,7 @@ export default function Home() {
 
       <section className="founder section-pad">
         <div className="shell founder-grid">
-          <div className="founder-photo reveal"><ResponsiveImage preset="portrait" focus={{ desktop: '50% 32%', tablet: '50% 28%', mobile: '50% 18%' }} src="/images/fundadora.webp" alt="Responsável pela Casa Criativa com um pincel em seu ateliê" fill sizes="(max-width: 780px) 100vw, 48vw" /></div>
+          <div className="founder-photo reveal"><ResponsiveImage preset={siteImages.founder.preset} focus={siteImages.founder.focus} src={siteImages.founder.src} alt={siteImages.founder.alt} fill sizes="(max-width: 780px) 100vw, 48vw" /></div>
           <div className="founder-copy reveal">
             <p className="eyebrow">A pessoa por trás da Casa</p>
             <h2>Uma vida cercada por arte, criatividade e pessoas.</h2>
@@ -245,7 +233,7 @@ export default function Home() {
             <h2 id="social-proof-title">Quem passa pela Casa Criativa leva mais do que o trabalho que criou.</h2>
             <p>Experiências reais, histórias reais e criações que carregam a personalidade de quem fez.</p>
           </div>
-          <div className="social-proof-image"><ResponsiveImage preset="portrait" focus={{ desktop: '50% 35%', tablet: '50% 32%', mobile: '50% 30%' }} src="/images/obra-festa-junina.webp" alt="Aluna sorrindo enquanto apresenta o trabalho que criou" fill sizes="(max-width: 760px) 80vw, 24vw" /></div>
+          <div className="social-proof-image"><ResponsiveImage preset={siteImages.testimonial.preset} focus={siteImages.testimonial.focus} src={siteImages.testimonial.src} alt={siteImages.testimonial.alt} fill sizes="(max-width: 760px) 80vw, 24vw" /></div>
         </div>
       </section>
 
@@ -271,9 +259,9 @@ export default function Home() {
           <div><p>Processos, bastidores, trabalhos, oficinas e muita criatividade acontecendo de verdade.</p><a className="text-link" href="https://www.instagram.com/casa_criativa_pf/" target="_blank" rel="noreferrer">@casa_criativa_pf <span>↗</span></a></div>
         </div>
         <div className="instagram-strip">
-          {socialImages.map(([src, alt], index) => (
-            <a href="https://www.instagram.com/casa_criativa_pf/" target="_blank" rel="noreferrer" key={src} className={`insta-${index + 1}`} aria-label="Abrir Instagram da Casa Criativa">
-              <ResponsiveImage preset={index === 2 ? 'process' : 'gallery'} focus={index === 0 ? { desktop: '50% 25%', tablet: '50% 27%', mobile: '50% 30%' } : index === 1 ? craftInstagramFocus : undefined} src={src} alt={alt} fill sizes="(max-width: 700px) 72vw, 31vw" />
+          {siteImages.instagram.map((image, index) => (
+            <a href="https://www.instagram.com/casa_criativa_pf/" target="_blank" rel="noreferrer" key={image.src} className={`insta-${index + 1}`} aria-label="Abrir Instagram da Casa Criativa">
+              <ResponsiveImage preset={image.preset} focus={image.focus} src={image.src} alt={image.alt} fill sizes="(max-width: 700px) 72vw, 31vw" />
             </a>
           ))}
         </div>
@@ -287,7 +275,7 @@ export default function Home() {
       </section>
 
       <section className="final-cta" id="contato">
-        <ResponsiveImage preset="wide" src="/images/criacao-em-grupo.webp" alt="Crianças criando juntas na Casa Criativa" fill sizes="100vw" />
+        <ResponsiveImage preset={siteImages.finalCTA.preset} focus={siteImages.finalCTA.focus} src={siteImages.finalCTA.src} alt={siteImages.finalCTA.alt} fill sizes="100vw" />
         <div className="final-shade" />
         <div className="shell final-content reveal">
           <p className="eyebrow light">Sua primeira criação começa aqui</p>

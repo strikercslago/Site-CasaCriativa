@@ -2,6 +2,8 @@
 
 Toda imagem editorial deve usar `ResponsiveImage`, em `app/components/responsive-image.tsx`. O componente recebe um `preset` de contexto (`hero`, `editorial`, `process`, `portrait`, `gallery`, `wide` ou `brand`) e aplica `object-fit` e pontos focais próprios para desktop, tablet e mobile. Os padrões ficam centralizados em `app/image-presets.ts`.
 
+A seleção da Home fica centralizada em `app/site-images.ts`. Evite reutilizar a mesma fotografia em seções diferentes. Quando uma repetição tiver uma justificativa editorial, limite-a a dois contextos e mantenha Hero e Fundadora exclusivos.
+
 O elemento pai define a moldura: posição, overflow e proporção. Use as proporções editoriais de `globals.css`: hero e faixas amplas ocupam toda a seção; cards de experiências variam entre paisagem e retrato no desktop e usam 4:5 no mobile; retratos de público usam 4:5 no desktop e 5:4 no mobile; a galeria mantém seu mosaico; Instagram usa 4:5 e 4:3.
 
 Para adicionar uma foto:
