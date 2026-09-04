@@ -113,7 +113,7 @@ section h2 em { font-weight: 500; color: var(--cyan-dark); }
 .experience-photo { position: relative; aspect-ratio: 4/3; overflow: hidden; background: #ddd; box-shadow: var(--shadow-soft); }
 .experience:nth-child(1) .experience-photo { aspect-ratio: 16/10; }
 .experience:nth-child(2) .experience-photo { aspect-ratio: 4/5; max-height: 47rem; }
-.experience:nth-child(3) .experience-photo { aspect-ratio: 3/2; }
+.experience-photo--craft { aspect-ratio: 4/5; }
 .experience-photo img { filter: saturate(.93) contrast(1.025); transition: transform 650ms var(--ease); }
 .experience:hover .experience-photo img { transform: scale(1.025); }
 .experience-copy { position: relative; z-index: 2; margin-left: -2rem; padding: clamp(2.3rem, 5vw, 4.5rem); background: var(--white); box-shadow: var(--shadow); }
@@ -213,7 +213,7 @@ section h2 em { font-weight: 500; color: var(--cyan-dark); }
 .instagram-head .text-link { margin-top: 1.5rem; color: var(--pink); }
 .instagram-strip { width: min(100% - var(--gutter), calc(var(--container) + (100vw - var(--container))/2)); margin: clamp(4rem, 8vw, 7rem) 0 0 auto; display: grid; grid-template-columns: 1fr 1.3fr 1fr; gap: 1rem; }
 .instagram-strip a { position: relative; aspect-ratio: 4/5; overflow: hidden; }
-.instagram-strip a:nth-child(2) { aspect-ratio: 4/3; align-self: center; }
+.instagram-strip a:nth-child(2) { aspect-ratio: 4/5; align-self: center; }
 .instagram-strip img { filter: saturate(.94) contrast(1.025); transition: transform 650ms var(--ease); }
 .instagram-strip a:hover img { transform: scale(1.02); }
 
@@ -335,6 +335,11 @@ section h2 em { font-weight: 500; color: var(--cyan-dark); }
   .instagram-head > div:last-child { max-width: 35rem; }
   .faq-grid { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (min-width: 541px) and (max-width: 800px) {
+  .art-a { grid-row: 1/8; }
+  .art-b { grid-row: 8/12; }
 }
 
 @media (max-width: 540px) {

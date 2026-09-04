@@ -90,6 +90,9 @@ const socialImages = [
   ['/images/ceramica-processo.webp', 'Detalhe do processo de criação em cerâmica'],
 ];
 
+const craftExperienceFocus = { desktop: '50% 50%', tablet: '50% 48%', mobile: '50% 46%' } as const;
+const craftInstagramFocus = { desktop: '50% 50%', tablet: '50% 48%', mobile: '50% 46%' } as const;
+
 export default function Home() {
   return (
     <main>
@@ -151,8 +154,8 @@ export default function Home() {
         <div className="shell experience-list">
           {featuredExperiences.map((item, index) => (
             <article className={`experience ${index % 2 ? 'reverse' : ''}`} key={item.title}>
-              <div className="experience-photo">
-                <ResponsiveImage preset={index === 1 ? 'process' : 'editorial'} focus={index === 2 ? { desktop: '50% 38%', tablet: '50% 34%', mobile: '50% 28%' } : undefined} src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 100vw, 58vw" />
+              <div className={`experience-photo${index === 2 ? ' experience-photo--craft' : ''}`}>
+                <ResponsiveImage preset={index === 1 ? 'process' : 'editorial'} focus={index === 2 ? craftExperienceFocus : undefined} src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 100vw, 58vw" />
               </div>
               <div className={`experience-copy ${item.tone}`}>
                 <span>{item.number}</span>
@@ -184,7 +187,7 @@ export default function Home() {
           </div>
         </div>
         <div className="shell art-grid">
-          <figure className="art art-a"><ResponsiveImage preset="gallery" focus={{ desktop: '50% 38%', tablet: '50% 36%', mobile: '50% 32%' }} src="/images/obra-festa-junina.webp" alt="Aluna apresenta cenário artístico colorido" fill sizes="(max-width: 700px) 60vw, 32vw" /><figcaption>Projeto autoral</figcaption></figure>
+          <figure className="art art-a"><ResponsiveImage preset="gallery" focus={{ desktop: '50% 38%', tablet: '50% 28%', mobile: '50% 32%' }} src="/images/obra-festa-junina.webp" alt="Aluna apresenta cenário artístico colorido" fill sizes="(max-width: 700px) 60vw, 32vw" /><figcaption>Projeto autoral</figcaption></figure>
           <figure className="art art-b"><ResponsiveImage preset="process" src="/images/ceramica-processo.webp" alt="Mãos modelam detalhes florais em uma peça" fill sizes="(max-width: 700px) 45vw, 24vw" /><figcaption>Modelagem</figcaption></figure>
           <figure className="art art-c"><ResponsiveImage preset="gallery" focus={{ desktop: '50% 43%', tablet: '50% 43%', mobile: '50% 45%' }} src="/images/aula-desenho.webp" alt="Crianças desenham ao redor de uma mesa" fill sizes="(max-width: 700px) 100vw, 42vw" /><figcaption>Experimentação</figcaption></figure>
           <figure className="art art-d"><ResponsiveImage preset="portrait" src="/images/fundadora.webp" alt="Artista segura um pincel diante de uma pintura" fill sizes="(max-width: 700px) 46vw, 22vw" /><figcaption>Arte em cada detalhe</figcaption></figure>
@@ -270,7 +273,7 @@ export default function Home() {
         <div className="instagram-strip">
           {socialImages.map(([src, alt], index) => (
             <a href="https://www.instagram.com/casa_criativa_pf/" target="_blank" rel="noreferrer" key={src} className={`insta-${index + 1}`} aria-label="Abrir Instagram da Casa Criativa">
-              <ResponsiveImage preset={index === 2 ? 'process' : 'gallery'} focus={index === 0 ? { desktop: '50% 25%', tablet: '50% 27%', mobile: '50% 30%' } : index === 1 ? { desktop: '50% 35%', tablet: '50% 34%', mobile: '50% 32%' } : undefined} src={src} alt={alt} fill sizes="(max-width: 700px) 72vw, 31vw" />
+              <ResponsiveImage preset={index === 2 ? 'process' : 'gallery'} focus={index === 0 ? { desktop: '50% 25%', tablet: '50% 27%', mobile: '50% 30%' } : index === 1 ? craftInstagramFocus : undefined} src={src} alt={alt} fill sizes="(max-width: 700px) 72vw, 31vw" />
             </a>
           ))}
         </div>
