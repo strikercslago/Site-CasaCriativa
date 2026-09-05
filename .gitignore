@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+/node_modules.pnpm-backup/
 /.pnp
 .pnp.*
 .yarn/*
@@ -34,5 +35,7 @@ yarn-error.log*
 next-env.d.ts
 /dist/
 /.wrangler/
+/.output/
+/.netlify/
 /outputs/
 /work/
