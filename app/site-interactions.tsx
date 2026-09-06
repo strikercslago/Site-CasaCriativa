@@ -11,15 +11,92 @@ const navigation = [
   ['Contato', '#contato'],
 ];
 
+export function MotionController() {
+  useEffect(() => {
+    const root = document.documentElement;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const desktopMotion = window.matchMedia('(min-width: 801px)');
+    const revealElements = Array.from(
+      document.querySelectorAll<HTMLElement>('[data-reveal], [data-stagger]'),
+    );
+
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) {
+      revealElements.forEach((element) => element.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 },
+    );
+
+    revealElements.forEach((element) => observer.observe(element));
+    root.classList.add('motion-ready');
+
+    const parallaxElements = desktopMotion.matches
+      ? Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'))
+      : [];
+    let frame = 0;
+
+    const updateParallax = () => {
+      frame = 0;
+      const viewportCenter = window.innerHeight / 2;
+      parallaxElements.forEach((element) => {
+        const rect = element.getBoundingClientRect();
+        if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+        const distance = (rect.top + rect.height / 2 - viewportCenter) / window.innerHeight;
+        const offset = Math.max(-18, Math.min(18, distance * -18));
+        element.style.setProperty('--parallax-y', `${offset.toFixed(2)}px`);
+      });
+    };
+
+    const scheduleParallax = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateParallax);
+    };
+
+    if (parallaxElements.length) {
+      updateParallax();
+      window.addEventListener('scroll', scheduleParallax, { passive: true });
+      window.addEventListener('resize', scheduleParallax);
+    }
+
+    return () => {
+      observer.disconnect();
+      root.classList.remove('motion-ready');
+      window.removeEventListener('scroll', scheduleParallax);
+      window.removeEventListener('resize', scheduleParallax);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return null;
+}
+
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const updateHeader = () => setScrolled(window.scrollY > 40);
+    let frame = 0;
+    const updateHeader = () => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        setScrolled(window.scrollY > 40);
+        frame = 0;
+      });
+    };
     updateHeader();
     window.addEventListener('scroll', updateHeader, { passive: true });
-    return () => window.removeEventListener('scroll', updateHeader);
+    return () => {
+      window.removeEventListener('scroll', updateHeader);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
   }, []);
 
   useEffect(() => {
@@ -66,7 +143,9 @@ export function FAQAccordion({ items }: { items: FAQItem[] }) {
               <strong>{item.question}</strong>
               <i aria-hidden="true" />
             </button>
-            <div className="faq-answer" id={panelId} hidden={!open}><p>{item.answer}</p><a href="#contato">Falar com a Casa Criativa <span>↗</span></a></div>
+            <div className="faq-answer" id={panelId} aria-hidden={!open}>
+              <div className="faq-answer-inner"><p>{item.answer}</p><a href="#contato" tabIndex={open ? 0 : -1}>Falar com a Casa Criativa <span>↗</span></a></div>
+            </div>
           </article>
         );
       })}
