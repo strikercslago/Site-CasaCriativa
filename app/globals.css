@@ -142,7 +142,15 @@ section h2 em { font-weight: 500; color: var(--cyan-dark); }
 .complementary-list p { color: var(--muted); }
 .complementary-list a { font-size: 1.3rem; }
 
-.gallery { overflow: hidden; background: var(--ink); color: white; }
+.gallery {
+  overflow: hidden;
+  background-color: var(--ink);
+  background-image: linear-gradient(rgba(20, 29, 29, .34), rgba(20, 29, 29, .34)), url('/images/textures/paint-dark.webp');
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
 .gallery-head { display: grid; grid-template-columns: 8fr 4fr; gap: 4rem; align-items: end; }
 .gallery-head h2 { max-width: 54rem; }
 .gallery-head h2 em { color: var(--yellow); }
@@ -176,7 +184,14 @@ section h2 em { font-weight: 500; color: var(--cyan-dark); }
 .audience-grid h3 { margin: .8rem 0 1.1rem; font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(2rem, 3.3vw, 3.4rem); font-weight: 500; line-height: 1; letter-spacing: -.035em; }
 .audience-grid article > p:last-child { color: var(--muted); }
 
-.journey { background: var(--cyan-dark); color: white; }
+.journey {
+  background-color: var(--cyan-dark);
+  background-image: linear-gradient(rgba(0, 103, 124, .24), rgba(0, 103, 124, .24)), url('/images/textures/paint-cyan.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
 .journey-head { max-width: 64rem; margin-left: max(var(--gutter), calc((100vw - var(--container)) / 2)); }
 .journey-head h2 em { color: var(--yellow); }
 .journey-steps { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 3rem; margin-top: clamp(5rem, 9vw, 8rem); padding-top: 3rem; list-style: none; }
@@ -195,7 +210,14 @@ section h2 em { font-weight: 500; color: var(--cyan-dark); }
 .founder-copy h2 { font-size: clamp(3.4rem, 5.5vw, 5.8rem); }
 .founder-copy blockquote { margin: 2.5rem 0; max-width: 38rem; padding-left: 1.5rem; border-left: 3px solid var(--pink); font-family: var(--font-cormorant), Georgia, serif; font-size: clamp(1.5rem, 2.2vw, 2.1rem); line-height: 1.35; }
 
-.social-proof { background: var(--pink); color: white; }
+.social-proof {
+  background-color: var(--pink);
+  background-image: linear-gradient(rgba(176, 33, 80, .18), rgba(176, 33, 80, .18)), url('/images/textures/paint-pink.webp');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
 .social-proof-grid { position: relative; min-height: 42rem; display: grid; grid-template-columns: 8fr 4fr; align-items: center; gap: 4rem; }
 .quote-mark { --motion-opacity: .11; position: absolute; left: -3rem; top: -7rem; font-family: Georgia, serif; font-size: 25rem; line-height: 1; opacity: .11; }
 .social-proof-copy { position: relative; z-index: 1; }
